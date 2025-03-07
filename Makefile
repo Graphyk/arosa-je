@@ -1,3 +1,8 @@
+init: ##initialize the project
+	@$(MAKE) stop
+	@$(MAKE) start
+	@$(MAKE) migrate
+
 start: ## start back + front
 	@docker compose up -d
 
