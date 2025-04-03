@@ -1,0 +1,9 @@
+[
+    {
+      "model": "address.address",
+      "pk": 1,
+      "fields": {
+        "raw": "1 Somewhere Ave, Northcote, VIC 3070, AU"
+      }
+    }
+  ]

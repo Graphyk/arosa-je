@@ -1,0 +1,13 @@
+[
+  {
+    "model": "arosaje.species",
+    "pk": 1,
+    "fields": {
+      "name": "Hortensia",
+      "water_dependency": 2,
+      "light_dependency": 2,
+      "creation_time": "2024-09-16T11:00:00+02:00",
+      "update_time": "2024-09-16T11:00:00+02:00"
+    }
+  }
+]
