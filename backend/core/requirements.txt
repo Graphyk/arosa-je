@@ -1,4 +1,4 @@
-django
-djangorestframework
-Pillow
-django-address
+Django==5.0
+djangorestframework==3.16
+Pillow==11.1.0
+django-address==0.2.8

@@ -10,9 +10,6 @@ RUN apk add --no-cache \
     libpng-dev
 
 COPY backend/core/requirements*.txt /app/
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-ENV DJANGO_SUPERUSER_USERNAME=admin 
-ENV DJANGO_SUPERUSER_EMAIL=admin@example.com 
-ENV DJANGO_SUPERUSER_PASSWORD=password 
+ENV GOOGLE_API_KEY=""
