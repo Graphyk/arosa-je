@@ -1,0 +1,12 @@
+[
+    {
+      "model": "arosaje.posts",
+      "pk": 1,
+      "fields": {
+        "commentary": "besoin de s'occuper de ma plante !",
+        "start_of_event": "2035-09-16",
+        "end_of_event": "2035-10-16",
+        "plant_id": 1 
+      }
+    }
+  ]
