@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
 
-from arosaje.serializers import GroupSerializer, UserSerializer
-from arosaje.models import Plants
+from arosaje.serializers import GroupSerializer, UserSerializer, PostsSerializer
+from arosaje.models import Plants, Posts
 from arosaje.serializers import PlantsSerializer
 
 
@@ -28,8 +28,16 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class PlantsViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows Plants to be viewed or edited.
     """
     queryset = Plants.objects.all()
     serializer_class = PlantsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class PostsViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Posts to be viewed or edited.
+    """
+    queryset = Posts.objects.all()
+    serializer_class = PostsSerializer
     permission_classes = [permissions.IsAuthenticated]

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 
-from arosaje.models import Plants, Species
+from arosaje.models import Plants, Species, Posts
 from address.models import Address
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,15 +15,18 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
+
 class ShortAdressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ['id', 'raw']
 
+
 class SpeciesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Species
         fields = ['id', 'water_dependency', 'light_dependency']
+
 
 class PlantsSerializer(serializers.HyperlinkedModelSerializer):
     address = ShortAdressSerializer()
@@ -31,3 +34,15 @@ class PlantsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Plants
         fields = ['owner', 'url', 'address', 'species', 'creation_time']
+
+class PostsSerializer(serializers.HyperlinkedModelSerializer):
+    plant = PlantsSerializer(read_only=True)
+    plant_id = serializers.PrimaryKeyRelatedField(
+        queryset=Plants.objects.all(),
+        write_only=True,
+        source='plant'
+    )
+
+    class Meta:
+        model = Posts
+        fields = ['url','commentary', 'plant', 'plant_id', 'start_of_event', 'end_of_event']

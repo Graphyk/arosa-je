@@ -1,3 +1,6 @@
+help:
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 init: ##initialize the project
 	rm -f backend/db.sqlite3
 	@$(MAKE) stop
@@ -20,4 +23,10 @@ migrate: ## apply migrations
 	@docker compose exec  backend python3 manage.py migrate
 
 load-fixtures: 
-	@docker compose exec  backend python3 manage.py loaddata address species plants
+	@docker compose exec  backend python3 manage.py loaddata address species plants posts
+
+test:
+	@docker compose exec  backend python3 manage.py test arosaje.tests
+
+django-shell:
+	@docker compose exec  backend python3 manage.py shell
