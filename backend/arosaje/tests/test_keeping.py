@@ -78,3 +78,82 @@ class KeepingTestCase(TestCase):
         )
         with self.assertRaises(ValidationError):
             keeping.save()
+
+    
+    def test_cancel_keeping(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.cancel()
+        keeping.refresh_from_db()
+        self.assertEqual(keeping.status, 1)
+
+    def test_cancel_after_plant_taken(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.take()
+        keeping.refresh_from_db()
+
+        with self.assertRaises(ValidationError):
+            keeping.cancel()
+
+    def test_take_plant(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.take()
+        keeping.refresh_from_db()
+        self.assertEqual(keeping.status, 3)
+
+    def test_take_plant_after_cancellation(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.cancel()
+        keeping.refresh_from_db()
+
+        with self.assertRaises(ValidationError):
+            keeping.take()
+
+    def test_validate_keeping(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.take()
+        keeping.refresh_from_db()
+
+        keeping.validate()
+        keeping.refresh_from_db()
+        self.assertEqual(keeping.status, 4)
+
+    def test_validate_keeping_without_plant_taken(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        with self.assertRaises(ValidationError):
+            keeping.validate()
+
+    def test_validate_keeping_after_cancellation(self):
+        keeping = Keeping(
+            keeper=self.keeper,
+            post=self.post
+        )
+
+        keeping.cancel()
+        keeping.refresh_from_db()
+
+        with self.assertRaises(ValidationError):
+            keeping.validate()

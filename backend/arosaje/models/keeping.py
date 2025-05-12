@@ -32,3 +32,25 @@ class Keeping(models.Model):
             raise ValidationError(
                 "you can't accept a keeping at the last moment"
             )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    def cancel(self):
+        if self.status != 0:
+            raise ValidationError("Keeping must be pending in view to be canceled")
+        self._status = 1
+        self.save()
+
+    def take(self):
+        if self.status != 0:
+            raise ValidationError("Keeping must be pending in view to be taken")
+        self._status = 3
+        self.save()
+
+    def validate(self):
+        if self.status != 3:
+            raise ValidationError("Keeping must be ongoing in view to be validated")
+        self._status = 4
+        self.save()
