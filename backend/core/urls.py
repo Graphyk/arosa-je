@@ -18,13 +18,14 @@ from django.urls import include, path
 from rest_framework import routers
 
 from arosaje import views
-from arosaje.views import PlantsViewSet, PostsViewSet
+from arosaje.views import PlantsViewSet, PostsViewSet, KeepingViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'plants', PlantsViewSet)
 router.register(r'posts', PostsViewSet)
+router.register(r'keeping', KeepingViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
