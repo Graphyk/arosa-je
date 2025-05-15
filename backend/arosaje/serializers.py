@@ -46,3 +46,22 @@ class PostsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Posts
         fields = ['url','commentary', 'plant', 'plant_id', 'start_of_event', 'end_of_event']
+
+class KeepingSerializer(serializers.HyperlinkedModelSerializer):
+    post = PostsSerializer(read_only=True)
+    post_id = serializers.PrimaryKeyRelatedField(
+        queryset=Posts.objects.all(),
+        write_only=True,
+        source='post'
+    )
+
+    keeper = UserSerializer(read_only=True)
+    keeper_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        write_only=True,
+        source='user'
+    )
+
+    class Meta:
+        model = Posts
+        fields = ['url', 'post', 'post_id', 'keeper', 'keeper_id']
