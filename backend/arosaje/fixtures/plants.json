@@ -10,5 +10,17 @@
         "creation_time": "2024-09-16T11:00:00+02:00",
         "update_time": "2024-09-16T11:00:00+02:00"
       }
+    },
+    {
+      "model": "arosaje.plants",
+      "pk": 2,
+      "fields": {
+        "owner_id": 1,
+        "picture":  "/media/hortensia.png",
+        "address":  1,
+        "species_id": 1,
+        "creation_time": "2024-09-16T11:00:00+02:00",
+        "update_time": "2024-09-16T11:00:00+02:00"
+      }
     }
   ]

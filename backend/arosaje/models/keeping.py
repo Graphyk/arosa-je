@@ -29,9 +29,10 @@ class Keeping(models.Model):
         super().clean()
 
         if (self.post.start_of_event <= datetime.now().date()):
-            raise ValidationError(
-                "you can't accept a keeping at the last moment"
-            )
+            if not Keeping.objects.filter(post_id=self.post, keeper_id=self.keeper).first():
+                raise ValidationError(
+                    "you can't accept a keeping at the last moment"
+                )
 
     def save(self, *args, **kwargs):
         self.full_clean()
