@@ -26,7 +26,6 @@ class KeepingTestCase(TestCase):
             raw="Parc de haute technologie du Moulin Leblanc, Campu Sup, 08000 Charleville-Mézières"
         )
 
-        # Créer une plante pour les tests
         self.species = Species.objects.create(
             name="Rose",
             water_dependency=2,
@@ -37,7 +36,9 @@ class KeepingTestCase(TestCase):
             species=self.species,
             owner=self.user,
             address=self.address,
-            picture="/media/hortensia.png"
+            picture="/media/hortensia.png",
+            lat=0,
+            lon=0
         )
 
         self.keeper = User.objects.create_user(
