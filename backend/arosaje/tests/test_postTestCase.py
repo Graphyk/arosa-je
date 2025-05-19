@@ -32,7 +32,9 @@ class PostsTestCase(TestCase):
             species=self.species,
             owner=self.user,
             address=self.address,
-            picture="/media/hortensia.png"
+            picture="/media/hortensia.png",
+            lat=0,
+            lon=0
         )
         
         # Créer une période existante
