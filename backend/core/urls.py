@@ -16,20 +16,23 @@ Including another URLconf
 """
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from arosaje import views
 from arosaje.views import PlantsViewSet, PostsViewSet, KeepingViewSet
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'plants', PlantsViewSet)
-router.register(r'posts', PostsViewSet)
-router.register(r'keeping', KeepingViewSet)
+apiRouter = routers.DefaultRouter()
+apiRouter.register(r'users', views.UserViewSet)
+apiRouter.register(r'groups', views.GroupViewSet)
+apiRouter.register(r'plants', PlantsViewSet)
+apiRouter.register(r'posts', PostsViewSet)
+apiRouter.register(r'keeping', KeepingViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/', include(apiRouter.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh")
 ]
