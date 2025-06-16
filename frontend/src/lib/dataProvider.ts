@@ -11,7 +11,6 @@ export function formDataToJson(formData: FormData): Record<string, FormDataEntry
 }
 
 const httpClient = async (path: string | URL, options: Options = {}) => {
-	console.log(await authProvider.token());
 	let token = await authProvider.token();
 	const user = () =>
 		token ? { token: `Bearer ${token}`, authenticated: Boolean(token) } : undefined;
