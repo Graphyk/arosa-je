@@ -69,19 +69,14 @@ const authProvider = ((): AuthProvider<AuthProviderData> => {
 	}
 
 	async function login(params: LoginParams): Promise<void> {
-		try {
-			const { json } = await customFetch('/api/token/', {
-				method: 'POST',
-				body: new URLSearchParams(params),
-				headers: new Headers({
-					'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-				}),
-			});
-			setAuth(json.access, json.refresh);
-		} catch (e) {
-            // implements a model that display informations
-            console.log(e)
-		}
+		const { json } = await customFetch('/api/token/', {
+			method: 'POST',
+			body: new URLSearchParams(params),
+			headers: new Headers({
+				'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+			}),
+		});
+		setAuth(json.access, json.refresh);
 	}
 
 	function logout() {
