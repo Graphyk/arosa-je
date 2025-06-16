@@ -27,8 +27,8 @@ export interface AuthProvider<T> extends Writable<T> {
 	token: () => Promise<string | null>
 }
 
-const ACCESS_TOKEN_KEY = 'paf.access_token';
-const REFRESH_TOKEN_KEY = 'paf.refresh_token';
+const ACCESS_TOKEN_KEY = 'arosaje.access_token';
+const REFRESH_TOKEN_KEY = 'arosaje.refresh_token';
 
 function isExpired(date: Date): boolean {
 	// 1 minute before real expiration to avoid false negatives due to network latency
