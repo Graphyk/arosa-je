@@ -1,5 +1,5 @@
 <script>
-  import map from '$lib/components/map.svelte';
+  import Map from '$lib/components/map.svelte';
 </script>
 
-<map classes="w-full h-screen" />
+<Map classes="w-full h-screen" />
