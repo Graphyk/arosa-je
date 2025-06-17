@@ -89,7 +89,7 @@ const dataProvider = ((_httpClient: typeof customFetch = httpClient): DataProvid
 			const { headers, json } = await fetchRoute(url, options);
 
 			return {
-				data: json,
+				data: json.results,
 				pageInfo: {
 					hasMore: headers.get('x-has-more') === 'True',
 					previousOffset: parseInt(headers.get('x-previous-offset') || '0'),

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import "leaflet/dist/leaflet.css";
 
 @theme {
     --color-background-100: #f0f4fa;

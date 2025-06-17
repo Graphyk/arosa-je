@@ -33,7 +33,7 @@ class PlantsSerializer(serializers.HyperlinkedModelSerializer):
     species = SpeciesSerializer()
     class Meta:
         model = Plants
-        fields = ['owner', 'url', 'address', 'species', 'creation_time']
+        fields = ['owner', 'url', 'address', 'species', 'creation_time', 'lat', 'lon']
 
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
     plant = PlantsSerializer(read_only=True)
