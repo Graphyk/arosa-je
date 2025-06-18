@@ -5,6 +5,8 @@
     import { map as createMap, latLng, tileLayer, type MapOptions, marker, type MarkerOptions, type LeafletMouseEvent, LatLng} from 'leaflet';
     import type { DataProvider } from '$lib/type/dataProvider';
     import getUserLocation from '$lib/utils/getUserLocation';
+    import type { Plant } from '$lib/type/resources/plant';
+    import { goto } from '$app/navigation';
 
     interface Props {
         classes: string;
@@ -23,15 +25,11 @@
     }
     
     function onPinClick(e: LeafletMouseEvent) {
-      console.log(e);
+      goto(`/plant/${e.target.options.dataPlant.id}`);
     }
 
     interface plantMarkerOptions extends MarkerOptions {
-      dataPlant?: {
-        id: number;
-        name: string;
-        type: string;
-      };
+      dataPlant?: Plant;
     }
     
     onMount(async () => {

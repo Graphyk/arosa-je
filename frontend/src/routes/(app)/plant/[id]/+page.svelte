@@ -118,7 +118,7 @@
             {#each lightSuns as light}
               {@const Icon = light.icon}
               <span class="text-xl transition-colors duration-200">
-                <Icon color={light.isActive ? 'orange' : 'grey'}/>
+                <Icon color={light.isActive ? 'orange' : 'grey'} size={25} />
               </span>
             {/each}
           </div>
@@ -128,7 +128,7 @@
             {#each waterDrops as water}
               {@const Icon = water.icon}
               <span class="text-xl transition-colors duration-200 ">
-                <Icon color={water.isActive ? 'blue' : 'grey'} />
+                <Icon color={water.isActive ? 'blue' : 'grey'} size={25} />
               </span>
             {/each}
           </div>
@@ -148,7 +148,7 @@
         </button>
 
       </div>
-      {#if post}
+      {#if post && post.commentary !== ""}
         <p class="mb-2 text-xs text-gray-600 bg-background-200 py-2 px-4 rounded-md">
           {post.commentary}
         </p>
