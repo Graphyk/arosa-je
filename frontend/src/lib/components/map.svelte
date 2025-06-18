@@ -1,9 +1,10 @@
 <script lang="ts">
     import { getContext, onMount } from 'svelte';
-    import plantPin from '$lib/icon/plantPin';
+    import plantPin from '$lib/icon/pin/plantPin';
 
-    import { map as createMap, latLng, tileLayer, type MapOptions, marker, LatLng, type MarkerOptions, type LeafletMouseEvent} from 'leaflet';
+    import { map as createMap, latLng, tileLayer, type MapOptions, marker, type MarkerOptions, type LeafletMouseEvent, LatLng} from 'leaflet';
     import type { DataProvider } from '$lib/type/dataProvider';
+    import getUserLocation from '$lib/utils/getUserLocation';
 
     interface Props {
         classes: string;
@@ -32,21 +33,6 @@
         type: string;
       };
     }
-
-    const getUserLocation: () => Promise<LatLng | null>  = () => {
-      return new Promise((resolve, reject) => {
-        if ("geolocation" in navigator) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              resolve(latLng(position.coords.latitude, position.coords.longitude));
-            },
-            (err) => reject(err)
-          );
-        } else {
-          resolve(null);
-        }
-      });
-    };
     
     onMount(async () => {
       let options: MapOptions = {

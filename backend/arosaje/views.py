@@ -1,5 +1,9 @@
 from django.contrib.auth.models import Group, User
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+import django_filters.rest_framework
 
 from arosaje.serializers import GroupSerializer, UserSerializer, PostsSerializer, KeepingSerializer
 from arosaje.models import Plants, Posts, Keeping
@@ -40,6 +44,12 @@ class PostsViewSet(viewsets.ModelViewSet):
     serializer_class = PostsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ['plant']
+
+    ordering_fields = ['start_of_event', 'end_of_event', 'id']
+    ordering = ['start_of_event']
+
 class KeepingViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Posts to be viewed or edited.
@@ -47,3 +57,13 @@ class KeepingViewSet(viewsets.ModelViewSet):
     queryset = Keeping.objects.all()
     serializer_class = KeepingSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            'id': user.id,
+            'username': user.username,
+        })

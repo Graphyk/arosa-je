@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 
@@ -7,7 +8,7 @@ from address.models import Address
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['url', 'username', 'id']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,15 +26,23 @@ class ShortAdressSerializer(serializers.ModelSerializer):
 class SpeciesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Species
-        fields = ['id', 'water_dependency', 'light_dependency']
+        fields = ['id', 'water_dependency', 'light_dependency', 'name']
 
 
 class PlantsSerializer(serializers.HyperlinkedModelSerializer):
     address = ShortAdressSerializer()
     species = SpeciesSerializer()
+    picture = serializers.SerializerMethodField()
+    owner = UserSerializer()
+
+    def get_picture(self, obj):
+        if obj.picture:
+            return f"http://{settings.DEFAULT_HOST}{obj.picture.url}"
+        return None
+
     class Meta:
         model = Plants
-        fields = ['owner', 'url', 'address', 'species', 'creation_time', 'lat', 'lon']
+        fields = ['owner', 'url', 'address', 'species', 'creation_time', 'lat', 'lon', 'picture', 'id']
 
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
     plant = PlantsSerializer(read_only=True)

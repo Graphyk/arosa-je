@@ -7,5 +7,6 @@
 
 	setContext("dataProvider", dataProvider)
 </script>
-
-{@render children()}
+<div class="font-base">
+	{@render children()}
+</div>

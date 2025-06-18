@@ -1,3 +1,3 @@
-export type address = {
+export type Address = {
     raw: "";
 }
