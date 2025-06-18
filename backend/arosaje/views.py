@@ -50,6 +50,13 @@ class PostsViewSet(viewsets.ModelViewSet):
     ordering_fields = ['start_of_event', 'end_of_event', 'id']
     ordering = ['start_of_event']
 
+    def create(self, request):
+        print("paf")
+        
+        if (Plants.objects.get(id=request.data["plant_id"]).owner_id != request.user.id):
+            raise PermissionError("You can't create a post for somebody else")
+        return super().create(request)
+
 class KeepingViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Posts to be viewed or edited.

@@ -3,7 +3,11 @@
   import type { Plant } from '$lib/type/resources/plant';
   import type { Post } from '$lib/type/resources/post';
   import { water, light } from '$lib/icon';
-    import { user } from '$lib/store/user';
+  import { user } from '$lib/store/user';
+
+  import { Button, Datepicker, Label, Modal, Textarea } from 'flowbite-svelte';
+  import { getContext } from 'svelte';
+    import type { DataProvider } from '$lib/type/dataProvider';
 
   let { data }: PageProps = $props();
 
@@ -11,9 +15,35 @@
   let plant: Plant = data.plant;
   let distanceToPlant = data.distanceToPlant;
 
-  // State reactif avec runes
-  let currentSlideIndex = $state(0);
   let isLoading = $state(false);
+  let createPostFormOpened = $state(false);
+
+  const dataProvider = getContext<DataProvider>("dataProvider");
+
+  const createPostRequestData = $state({
+    start_of_event: new Date(Date.now()),
+    end_of_event: new Date(Date.now()),
+    plant_id: plant.id,
+    commentary: ""
+  })
+
+  const submitCreatePostForm = async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const startDate = createPostRequestData.start_of_event;
+    const endDate = createPostRequestData.end_of_event;
+
+    const formattedStartDate = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
+    const formattedEndDate = `${endDate.getFullYear()}-${endDate.getMonth() + 1}-${endDate.getDate()}`
+
+    dataProvider.create<Post>("api/posts/", {data: {
+        ...createPostRequestData,
+        start_of_event: formattedStartDate,
+        end_of_event: formattedEndDate
+    }})
+
+    createPostFormOpened = false;
+  }
 
   // Derived state pour les étoiles
   let lightSuns = $derived.by(() => {
@@ -32,15 +62,14 @@
   });
 
   // Derived state pour le texte du bouton
-  let owned = $derived(plant.owner.id !== $user?.id);
+  let owned = $derived(plant.owner.id === $user?.id);
 
   // Fonction pour gérer le clic sur le bouton principal
   function handleMainAction() {
     isLoading = true;
     
     if (owned) {
-      console.log('Faire garder la plante');
-      // Logique pour faire garder la plante d'autrui
+      createPostFormOpened = true;
     } else {
       console.log('Garder la plante');
       // Logique pour garder sa propre plante
@@ -67,7 +96,9 @@
       
       <div class="text-right">
         <p class="mb-1 text-sm font-medium">{plant.owner.username}</p>
-        <p class="text-xs text-gray-600">Garde demandée: <span class="whitespace-nowrap">{post.start_of_event} - {post.end_of_event}</span></p>
+        {#if post}
+          <p class="text-xs text-gray-600">Garde demandée: <span class="whitespace-nowrap">{post.start_of_event} - {post.end_of_event}</span></p>
+        {/if}
       </div>
     </div>
 
@@ -105,7 +136,7 @@
         </div>
 
         <button 
-          class="flex items-center gap-2 rounded-lg bg-primary-400 px-6 py-2 font-medium text-white transition-all duration-300 
+          class="flex items-center gap-2 rounded-lg bg-primary-500 px-6 py-2 font-medium text-white transition-all duration-300 
                 hover:bg-green-600 disabled:bg-green-300 disabled:cursor-not-allowed"
           onclick={handleMainAction}
           disabled={isLoading}
@@ -113,15 +144,48 @@
           {#if isLoading}
             <div class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
           {/if}
-          {owned ? 'Garder' : 'Faire garder'}
+          {owned ? 'Faire garder' : 'Garder'}
         </button>
 
       </div>
-          
-      <p class="mb-2 text-xs text-gray-600 bg-background-200 py-2 px-4 rounded-md">
-        Sous pesticide Truksmachintruc vivante depuis 2023
-      </p>
+      {#if post}
+        <p class="mb-2 text-xs text-gray-600 bg-background-200 py-2 px-4 rounded-md">
+          {post.commentary}
+        </p>
+      {/if}
     </div>
 
   </div>
+  {#if owned}
+    <Modal 
+      title="Créez un post pour votre plant" 
+      class="max-h-[90vh]" bodyClass="h-full" 
+      bind:open={createPostFormOpened}
+      onsubmit={submitCreatePostForm}
+    >
+      <form class="mt-6 flex flex-col items-center gap-2" method="dialog">
+        <Label class="flex flex-col items-center w-full" for="datepicker">
+          <span class="self-start">Date de garde</span>
+          <Datepicker
+            inline 
+            range
+            bind:rangeFrom={createPostRequestData.start_of_event}
+            bind:rangeTo={createPostRequestData.end_of_event}
+          />
+        </Label>
+        <Label class="w-full" for="commentary">
+          Commentaire
+          <Textarea 
+            name="commentary" 
+            bind:value={createPostRequestData.commentary} 
+            class="w-full"
+          />
+        </Label>
+        <Button type="submit">
+          Envoyer
+        </Button>
+      </form>
+
+    </Modal>
+  {/if}
 </div>
