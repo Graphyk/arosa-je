@@ -14,7 +14,7 @@
   let {
     items = $bindable(),
     activeColor = 'primary-500',
-    inactiveColor = 'slate-500',
+    inactiveColor = 'gray-500',
   }: Props = $props();
 
   // État réactif avec runes
@@ -52,11 +52,12 @@
       <button
         class={getNavItemClasses(item)}
         onclick={() => handleNavigation(item.path)}
-        aria-label={item.label || `Naviguer vers ${item.path}`}
+        aria-label={`Naviguer vers ${item.path}`}
         type="button"
       >
 
         <!-- Icône SVG -->
+         {console.log(getCssVariable(inactiveColor))}
         <Icon size={30} color={isActive(item.path) ? getCssVariable(activeColor) : getCssVariable(inactiveColor)}/>
       </button>
     {/each}

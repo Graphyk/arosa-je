@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import django_filters.rest_framework
 
-from arosaje.serializers import GroupSerializer, UserSerializer, PostsSerializer, KeepingSerializer
-from arosaje.models import Plants, Posts, Keeping
+from arosaje.serializers import GroupSerializer, UserSerializer, PostsSerializer, KeepingSerializer, SpeciesSerializer
+from arosaje.models import Plants, Posts, Keeping, Species
 from arosaje.serializers import PlantsSerializer
 
 
@@ -63,6 +63,14 @@ class KeepingViewSet(viewsets.ModelViewSet):
     """
     queryset = Keeping.objects.all()
     serializer_class = KeepingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class SpeciesViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Posts to be viewed or edited.
+    """
+    queryset = Species.objects.all()
+    serializer_class = SpeciesSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class CurrentUserView(APIView):

@@ -103,7 +103,7 @@
     </div>
 
     <img 
-      src={plant.picture} 
+      src={plant.picture_url} 
       alt={`picture of a ${plant.species.name}`} 
       class="w-[calc(100%+var(--spacing)*10)] max-w-none -mx-5"
       loading="lazy"
