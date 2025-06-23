@@ -9,4 +9,4 @@ interface Props {
     "size": number;
 }
 
-export { lightSvg as light, waterSvg as water, listSvg as list, profileSvg as profile, homeSvg as home, type Props as iconProps}
+export { lightSvg as Light, waterSvg as Water, listSvg as List, profileSvg as Profile, homeSvg as Home, type Props as iconProps}

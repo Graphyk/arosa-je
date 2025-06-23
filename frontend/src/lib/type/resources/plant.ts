@@ -12,4 +12,5 @@ export type Plant = {
     url: string;
     creation_time: Date;
     picture: Base64URLString;
+    picture_url: string;
 }

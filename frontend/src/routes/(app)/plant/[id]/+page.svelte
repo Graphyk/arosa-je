@@ -2,7 +2,7 @@
   import type { PageProps } from './$types';
   import type { Plant } from '$lib/type/resources/plant';
   import type { Post } from '$lib/type/resources/post';
-  import { water, light } from '$lib/icon';
+  import { Water, Light } from '$lib/icon';
   import { user } from '$lib/store/user';
 
   import { Button, Datepicker, Label, Modal, Textarea } from 'flowbite-svelte';
@@ -48,7 +48,7 @@
   // Derived state pour les étoiles
   let lightSuns = $derived.by(() => {
     return Array.from({ length: 5 }, (_, i) => ({
-      icon: light,
+      icon: Light,
       isActive: i < plant.species.light_dependency
     }));
   });
@@ -56,7 +56,7 @@
   // Derived state pour les gouttes d'eau
   let waterDrops = $derived.by(() => {
     return Array.from({ length: 5 }, (_, i) => ({
-      icon: water,
+      icon: Water,
       isActive: i < plant.species.water_dependency
     }));
   });
@@ -90,12 +90,9 @@
     </div>
 
     <div class="mb-5 flex items-start gap-10 justify-between">
-      <div class="flex-1">
-        <h2 class="mb-1 text-sm">{plant.address.raw} <span class="text-gray-600">(<span class="italic">{distanceToPlant}KM</span>)</span></h2>
-      </div>
       
-      <div class="text-right">
-        <p class="mb-1 text-sm font-medium">{plant.owner.username}</p>
+      <div class="text-right w-full">
+        <p class="mb-1 text-sm font-medium">owner: {plant.owner.username}</p>
         {#if post}
           <p class="text-xs text-gray-600">Garde demandée: <span class="whitespace-nowrap">{post.start_of_event} - {post.end_of_event}</span></p>
         {/if}

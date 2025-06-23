@@ -30,7 +30,6 @@ class SpeciesSerializer(serializers.ModelSerializer):
 
 
 class PlantsSerializer(serializers.HyperlinkedModelSerializer):
-    address = ShortAdressSerializer()
     species = SpeciesSerializer(read_only=True)
     species_id = serializers.PrimaryKeyRelatedField(
         queryset=Species.objects.all(),
@@ -70,8 +69,7 @@ class PlantsSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Plants
-        fields = ['owner', 'url', 'address', 'species', 'creation_time', 'lat', 'lon', 'picture', 'picture_url',
-                  'id','species_id']
+        fields = ['owner', 'url', 'species', 'creation_time', 'picture', 'picture_url', 'id','species_id']
 
 class PostsSerializer(serializers.HyperlinkedModelSerializer):
     plant = PlantsSerializer(read_only=True)

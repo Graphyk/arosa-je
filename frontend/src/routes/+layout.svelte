@@ -3,7 +3,7 @@
 	import dataProvider from '$lib/dataProvider';
 	import { setContext } from 'svelte'
     import { NavigationBar, type NavItem } from '$lib/components/navigationBar';
-    import { home, profile } from '$lib/icon';
+    import { Home, Profile } from '$lib/icon';
     import authProvider from '$lib/authProvider';
 	
 	let { children } = $props();
@@ -11,11 +11,11 @@
 	let navItems = $state<NavItem[]>([
 		{
 			path: '/home',
-			icon: home
+			icon: Home
 		},
 		{
 			path: '/profile',
-			icon: profile
+			icon: Profile
 		},
 	]);
 
