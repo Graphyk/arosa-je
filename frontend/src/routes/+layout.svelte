@@ -4,6 +4,7 @@
 	import { setContext } from 'svelte'
     import { NavigationBar, type NavItem } from '$lib/components/navigationBar';
     import { home, profile } from '$lib/icon';
+    import authProvider from '$lib/authProvider';
 	
 	let { children } = $props();
 
@@ -21,10 +22,12 @@
 	setContext("dataProvider", dataProvider)
 </script>
 <div class="font-base max-h-[100vh]">
-	<NavigationBar 
+	{#if authProvider.isAuthenticated()}
+		<NavigationBar 
 		bind:items={navItems}
-	/>
-	<div class="h-[calc(100vh-var(--spacing)*16)]">
+		/>
+	{/if}
+	<div class={authProvider.isAuthenticated() ? "h-[calc(100vh-var(--spacing)*16)]" : ''}>
 		{@render children()}
 	</div>
 </div>
