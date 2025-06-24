@@ -1,4 +1,4 @@
-FROM python:3.14.0a4-alpine3.21
+FROM python:3.13.5-alpine3.22
 
 RUN mkdir /app
 WORKDIR /app
@@ -11,5 +11,3 @@ RUN apk add --no-cache \
 
 COPY backend/core/requirements*.txt /app/
 RUN pip install -r requirements.txt
-
-ENV GOOGLE_API_KEY=""

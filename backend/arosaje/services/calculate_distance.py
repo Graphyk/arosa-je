@@ -11,3 +11,11 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
     return R * c
+
+def move_latitude(lat: float, meters_north: int) -> float:
+    delta_lat = meters_north / 111320
+    return lat + delta_lat
+
+def move_longitude(lat: float, lon: float, meters_east: int) -> float:
+    delta_lon = meters_east / (111320 * cos(radians(lat)))
+    return lon + delta_lon

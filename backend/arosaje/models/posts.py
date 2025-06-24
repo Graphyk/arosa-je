@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from .plants import Plants
 
 class Posts(models.Model):
-    commentary = models.TextField()
+    commentary = models.TextField(blank=True)
     start_of_event = models.DateField()
     end_of_event = models.DateField()
     plant = models.ForeignKey(Plants, on_delete=models.CASCADE)

@@ -4,7 +4,7 @@
       "pk": 1,
       "fields": {
         "owner_id": 1,
-        "picture":  "/media/hortensia.png",
+        "picture":  "/plants/hortensia.png",
         "address":  1,
         "species_id": 1,
         "creation_time": "2024-09-16T11:00:00+02:00",
@@ -18,13 +18,27 @@
       "pk": 2,
       "fields": {
         "owner_id": 1,
-        "picture":  "/media/hortensia.png",
+        "picture":  "/plants/hortensia.png",
         "address":  1,
         "species_id": 1,
         "creation_time": "2024-09-16T11:00:00+02:00",
         "update_time": "2024-09-16T11:00:00+02:00",
         "lat": 49.7392619,
         "lon": 4.721925
+      }
+    },
+    {
+      "model": "arosaje.plants",
+      "pk": 3,
+      "fields": {
+        "owner_id": 2,
+        "picture":  "/plants/hortensia.png",
+        "address":  1,
+        "species_id": 1,
+        "creation_time": "2024-09-16T11:00:00+02:00",
+        "update_time": "2024-09-16T11:00:00+02:00",
+        "lat": 49.7686935,
+        "lon": 4.7192628
       }
     }
   ]

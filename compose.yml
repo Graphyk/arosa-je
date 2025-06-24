@@ -7,6 +7,11 @@ services:
     command: ["python", "/app/manage.py", "runserver", "--nothreading", "0.0.0.0:8000"]
     ports:
       - "${HOST_FRONTEND_PORT-8000}:8000" # Django BO
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 512M
        
   frontend:
     image: node:22.15.1-alpine3.20
@@ -15,3 +20,8 @@ services:
     command: ['sh', '-c', '[ ! -d node_modules ] && yarn install; npm run dev -- --host']
     ports:
       - '${HOST_FRONTEND_PORT-5173}:5173'
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 512M

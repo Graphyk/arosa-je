@@ -3,7 +3,7 @@ help:
 
 init: ##initialize the project
 	@$(MAKE) stop
-	@docker compose up -d --build
+	@docker compose up -d
 	@$(MAKE) migrate
 	@$(MAKE) load-fixtures
 

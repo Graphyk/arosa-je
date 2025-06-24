@@ -5,6 +5,9 @@ import { browser } from '$app/environment';
 import { jwtDecode } from 'jwt-decode';
 import { get, writable, type Writable } from 'svelte/store';
 import { HttpError } from './error/httpError';
+import { user } from './store/user';
+import dataProvider from './dataProvider';
+import type { User } from './type/resources/user';
 
 // cache expiration to avoid unwraping the token every time
 interface AuthProviderData {
@@ -77,12 +80,15 @@ const authProvider = ((): AuthProvider<AuthProviderData> => {
 			}),
 		});
 		setAuth(json.access, json.refresh);
+		const currentUser = (await dataProvider.get<User>("/api/me")).data;
+		user.set(currentUser);
 	}
 
 	function logout() {
 		localStorage.removeItem(ACCESS_TOKEN_KEY);
 		localStorage.removeItem(REFRESH_TOKEN_KEY);
 		auth.set(null);
+		user.set(null);
 		window.location.replace('/');
 	}
 
