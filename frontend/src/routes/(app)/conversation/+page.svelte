@@ -7,30 +7,27 @@
 
   import { Button, Datepicker, Label, Modal, Textarea } from 'flowbite-svelte';
   import { getContext } from 'svelte';
-    import type { DataProvider } from '$lib/type/dataProvider';
+  import type { DataProvider } from '$lib/type/dataProvider';
   import { goto } from '$app/navigation';
 
   let { data }: PageProps = $props();
 
-  let conversation: any = data.conversation;
+  let conversationList: any = data.conversation;
 
   let isLoading = $state(false);
   let textValue = $state("");
 
   // Function to add something to a conversation
 
-  // Je sais pas trop comment faire donc je me contente de récuperer la date du last message
-  // const dataProvider = getContext<DataProvider>("dataProvider");
+
 
 </script>
 
 <div class="mx-auto w-full bg-white min-h-screen bg-[#F0F4FA]">
     <div class="min-h-screen bg-[#F0F4FA]">
-        {#each conversation.list as conversationElement, i}
-            <button onclick={() => goto(`/conversation/${'1'}`)} class={`flex  cursor-pointer p-2 py-4  h-24 w-full ${Number.isInteger(i / 2) ? "bg-[#F0F4FA]" : "bg-gray-50"}`}>
-                <div>
-                    <img class="h-16 w-16 ml-4 border-1 border-green-700 mr-4 bg-gray-300 rounded-full" alt={`Photo de profil de ${conversationElement.contact.name}`}/>
-                </div>
+        {#each conversationList.list as conversationElement}
+            <button onclick={() => goto(`/conversation/${'1'}`)} class="flex  cursor-pointer p-2 py-4  h-24 w-full odd:bg-[#F0F4FA] even:bg-gray-50">
+                <img src={conversationElement.contact.profile_picture} width="16" height="16" class="h-16 w-16 ml-4 border-1 border-green-700 mr-4 bg-gray-300 rounded-full" alt={`Photo de profil de ${conversationElement.contact.name}`}/>
                 <div class="grid w-full items-start">
                     <div class="flex leading-none justify-between w-full">
                         <p class="text-xl capitalize">{conversationElement.contact.name}</p>

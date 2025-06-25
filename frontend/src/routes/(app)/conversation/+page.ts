@@ -10,7 +10,7 @@ interface conversationList {
   user_id: number;
   list: {
     udpated_at: string;
-    contact: { name: string; role: string };
+    contact: { name: string; role: string; profile_picture: string };
     content: string;
     expeditor: "me" | "contact";
   }[];
@@ -22,37 +22,61 @@ const mockConversation: conversationList = {
   list: [
     {
       udpated_at: "2025-06-24T10:00:00Z",
-      contact: { name: "Alice Dupont", role: "Botaniste" },
+      contact: {
+        name: "Alice Dupont",
+        role: "Botaniste",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Salut, comment va ta plante ?",
       expeditor: "contact",
     },
     {
       udpated_at: "2025-06-24T10:01:00Z",
-      contact: { name: "Moi", role: "Utilisateur" },
+      contact: {
+        name: "Moi",
+        role: "Utilisateur",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Elle se porte super bien, merci !",
       expeditor: "me",
     },
     {
       udpated_at: "2025-06-24T10:03:00Z",
-      contact: { name: "Alice Dupont", role: "Botaniste" },
+      contact: {
+        name: "Alice Dupont",
+        role: "Botaniste",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Tu penses qu'elle a besoin d'eau ?",
       expeditor: "contact",
     },
     {
       udpated_at: "2025-06-24T10:04:00Z",
-      contact: { name: "Moi", role: "Utilisateur" },
+      contact: {
+        name: "Moi",
+        role: "Utilisateur",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Oui, je vais l'arroser cet après-midi.",
       expeditor: "me",
     },
     {
       udpated_at: "2025-06-24T10:06:00Z",
-      contact: { name: "Alice Dupont", role: "Botaniste" },
+      contact: {
+        name: "Alice Dupont",
+        role: "Botaniste",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Parfait ! N'oublie pas de lui donner un peu d'engrais.",
       expeditor: "contact",
     },
     {
       udpated_at: "2025-06-24T10:07:00Z",
-      contact: { name: "Moi", role: "Utilisateur" },
+      contact: {
+        name: "Moi",
+        role: "Utilisateur",
+        profile_picture: "https://picsum.photos/200",
+      },
       content: "Bonne idée, je vais m'en occuper.",
       expeditor: "me",
     },
@@ -64,5 +88,3 @@ export const load = (async ({ params }) => {
     conversation: mockConversation,
   };
 }) satisfies PageLoad;
-
-export const ssr = false;

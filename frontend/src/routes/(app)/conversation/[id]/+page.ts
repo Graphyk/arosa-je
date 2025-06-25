@@ -7,7 +7,7 @@ import type { PageLoad } from "./$types";
 import type { Plant } from "$lib/type/resources/plant";
 
 interface conversation {
-  contact: { name: string; role: string };
+  contact: { name: string; role: string; profile_picture: string };
 
   messages: {
     date: string;
@@ -18,7 +18,11 @@ interface conversation {
 
 // Mock de données
 const mockConversation: conversation = {
-  contact: { name: "Alice Dupont", role: "Botaniste" },
+  contact: {
+    name: "Alice Dupont",
+    role: "Botaniste",
+    profile_picture: "https://picsum.photos/200",
+  },
   messages: [
     {
       date: "2025-06-24T10:00:00Z",
@@ -35,31 +39,6 @@ const mockConversation: conversation = {
       content: "Tu penses qu'elle a besoin d'eau ?",
       expeditor: "contact",
     },
-    {
-      date: "2025-06-24T10:04:00Z",
-      content: "Oui, je vais l'arroser cet après-midi.",
-      expeditor: "me",
-    },
-    {
-      date: "2025-06-24T10:00:00Z",
-      content: "Salut, comment va ta plante ?",
-      expeditor: "contact",
-    },
-    {
-      date: "2025-06-24T10:01:00Z",
-      content: "Elle se porte super bien, merci !",
-      expeditor: "me",
-    },
-    {
-      date: "2025-06-24T10:03:00Z",
-      content: "Tu penses qu'elle a besoin d'eau ?",
-      expeditor: "contact",
-    },
-    {
-      date: "2025-06-24T10:04:00Z",
-      content: "Oui, je vais l'arroser cet après-midi.",
-      expeditor: "me",
-    },
   ],
 };
 
@@ -68,5 +47,3 @@ export const load = (async ({ params }) => {
     conversation: mockConversation,
   };
 }) satisfies PageLoad;
-
-export const ssr = false;
