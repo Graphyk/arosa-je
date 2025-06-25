@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers
 
-from arosaje.models import Plants, Species, Posts
+from arosaje.models import Plants, Species, Posts, Consentments
 from address.models import Address
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -102,7 +102,7 @@ class KeepingSerializer(serializers.HyperlinkedModelSerializer):
         model = Posts
         fields = ['url', 'post', 'post_id', 'keeper', 'keeper_id']
 
-class SpeciesSerializer(serializers.HyperlinkedModelSerializer):
+class ConsentmentsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Species
-        fields = ['id', 'url', 'name']
+        model = Consentments
+        fields = ['id', 'required', 'text', 'name']
