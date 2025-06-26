@@ -22,7 +22,8 @@ from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from arosaje import views
-from arosaje.views import PlantsViewSet, PostsViewSet, KeepingViewSet, SpeciesViewSet,CurrentUserView
+from arosaje.views import (PlantsViewSet, PostsViewSet, KeepingViewSet, SpeciesViewSet, 
+                           CurrentUserView, ConsentmentsViewSet) 
 
 apiRouter = routers.DefaultRouter()
 apiRouter.register(r'users', views.UserViewSet)
@@ -31,6 +32,7 @@ apiRouter.register(r'plants', PlantsViewSet)
 apiRouter.register(r'posts', PostsViewSet)
 apiRouter.register(r'keeping', KeepingViewSet)
 apiRouter.register(r'species', SpeciesViewSet)
+apiRouter.register(r'consentments', ConsentmentsViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

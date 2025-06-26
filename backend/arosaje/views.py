@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 import django_filters.rest_framework
 
-from arosaje.serializers import GroupSerializer, UserSerializer, PostsSerializer, KeepingSerializer, SpeciesSerializer
-from arosaje.models import Plants, Posts, Keeping, Species
-from arosaje.serializers import PlantsSerializer
-from arosaje.filters import PlantsFilterSet
+from arosaje.serializers import (GroupSerializer, UserSerializer, PostsSerializer, 
+                                KeepingSerializer, SpeciesSerializer, PlantsSerializer, ConsentmentsSerializer)
+from arosaje.models import Plants, Posts, Keeping, Species, Consentments, ConsentmentAcceptances
+from arosaje.filters import PlantsFilterSet, ConsentmentsFilterSet
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -79,6 +79,39 @@ class SpeciesViewSet(viewsets.ModelViewSet):
     queryset = Species.objects.all()
     serializer_class = SpeciesSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class ConsentmentsViewSet(viewsets.ModelViewSet):
+    queryset = Consentments.objects.all()
+
+    serializer_class = ConsentmentsSerializer
+    filterset_class = ConsentmentsFilterSet
+    permission_classes = [permissions.IsAuthenticated]
+
+    @action(detail=False, methods=['post'])
+    def accept(self, request):
+        consentment_id = request.data.get('consentment_id')
+        if not consentment_id:
+            return Response({'error': 'Consentment ID is required'}, status=400)
+
+        if (ConsentmentAcceptances.objects.filter(
+                user_id=request.user.id,
+                consentment_id=consentment_id,
+                accepted=True
+            ).count() > 0):
+            return Response({'error': 'This consentment is already accepted'}, status=400)
+
+        ConsentmentAcceptances.objects.create(
+            user_id=request.user.id,
+            consentment_id=consentment_id,
+            accepted=True
+        )
+        return Response({}, status=201)
+
+    @action(detail=False, methods=['get'])
+    def count(self, request):
+        filtered_queryset = self.filter_queryset(self.get_queryset())
+        return Response(filtered_queryset.count(), status=200)
+
 
 class CurrentUserView(APIView):
     permission_classes = [IsAuthenticated]

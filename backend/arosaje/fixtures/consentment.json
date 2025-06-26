@@ -1,0 +1,11 @@
+[
+        {
+        "model": "arosaje.consentments",
+        "pk": 1,
+        "fields": {
+            "name": "get_and_display_plant_position",
+            "text": "We need your consent to get and display the position of your plant. \nThis information will be used to dipslay your plant on the application's map.",
+            "required": true
+        }
+    }
+]
