@@ -20,7 +20,7 @@ migrate: ## apply migrations
 	@docker compose exec  backend python3 manage.py migrate
 
 load-fixtures: 
-	@docker compose exec  backend python3 manage.py loaddata address species plants posts user keeping
+	@docker compose exec  backend python3 manage.py loaddata address species plants posts user keeping consentment
 
 test:
 	@docker compose exec  backend python3 manage.py test arosaje.tests
