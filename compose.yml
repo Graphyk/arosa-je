@@ -7,6 +7,8 @@ services:
     command: ["python", "/app/manage.py", "runserver", "--nothreading", "0.0.0.0:8000"]
     ports:
       - "${HOST_FRONTEND_PORT-8000}:8000" # Django BO
+    depends_on:
+      - db
     deploy:
       resources:
         limits:
@@ -26,3 +28,14 @@ services:
         limits:
           cpus: '0.2'
           memory: 512M
+  db:
+    image: postgres:17-alpine
+    command: ["postgres", "-c", "log_statement=all"]
+    volumes:
+      - /tmp:/tmp
+    environment:
+      POSTGRES_DB: arosaje
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "${HOST_DB_PORT-5432}:5432"
