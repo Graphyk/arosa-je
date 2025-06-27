@@ -84,7 +84,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Keeping',
             fields=[
-                ('pk', models.CompositePrimaryKey('keeper_id', 'post_id', blank=True, editable=False, primary_key=True, serialize=False)),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('_status', models.SmallIntegerField(choices=[(0, 'pending'), (1, 'canceled'), (2, 'not taken'), (3, 'ongoing'), (4, 'validated'), (5, 'not gave back')], default=0)),
                 ('keeper', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='keeping_keeper', to=settings.AUTH_USER_MODEL)),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='arosaje.posts')),
@@ -92,8 +92,13 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='conversations',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='arosaje.posts'),
+            name='keeping',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='arosaje.keeping'),
+        ),
+        migrations.AddField(
+            model_name='messages',
+            name='author',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddConstraint(
             model_name='posts',
