@@ -66,7 +66,7 @@ class PostsViewSet(viewsets.ModelViewSet):
 
 class KeepingViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Posts to be viewed or edited.
+    API endpoint that allows Keeping to be viewed or edited.
     """
     queryset = Keeping.objects.all()
     serializer_class = KeepingSerializer
@@ -74,13 +74,16 @@ class KeepingViewSet(viewsets.ModelViewSet):
 
 class SpeciesViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows Posts to be viewed or edited.
+    API endpoint that allows Species to be viewed or edited.
     """
     queryset = Species.objects.all()
     serializer_class = SpeciesSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class ConsentmentsViewSet(viewsets.ModelViewSet):
+     """
+    API endpoint that allows Consentments to be viewed or edited.
+    """
     queryset = Consentments.objects.all()
 
     serializer_class = ConsentmentsSerializer
