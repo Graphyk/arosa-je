@@ -16,7 +16,6 @@ class Keeping(models.Model):
         (5, "not gave back")
     ]
 
-    pk = models.CompositePrimaryKey("keeper_id", "post_id")
     keeper = models.ForeignKey(User, on_delete=models.CASCADE, related_name="keeping_keeper")
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
     _status = models.SmallIntegerField(choices=STATUSES, default=0)
