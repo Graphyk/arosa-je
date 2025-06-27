@@ -81,7 +81,7 @@ class SpeciesViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 class ConsentmentsViewSet(viewsets.ModelViewSet):
-     """
+    """
     API endpoint that allows Consentments to be viewed or edited.
     """
     queryset = Consentments.objects.all()
