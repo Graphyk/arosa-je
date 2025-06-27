@@ -1,7 +1,7 @@
-from django_filters import FilterSet, NumberFilter
+from django_filters import FilterSet, NumberFilter, BooleanFilter
 import logging
 
-from arosaje.models import Plants
+from arosaje.models import Plants, Consentments
 
 from arosaje.services.calculate_distance import move_latitude, move_longitude
 
@@ -36,4 +36,18 @@ class PlantsFilterSet(FilterSet):
             except (ValueError, TypeError):
                 pass
 
+        return queryset
+
+
+class ConsentmentsFilterSet(FilterSet):
+    required = BooleanFilter(field_name="required")
+    not_signed = BooleanFilter(method="filter_not_signed")
+
+    class Meta:
+        model = Consentments
+        fields = ["required"]
+
+    def filter_not_signed(self, queryset, name, value):
+        if value:
+            return queryset.exclude(acceptances__user=self.request.user)
         return queryset

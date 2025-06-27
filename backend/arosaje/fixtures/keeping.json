@@ -1,6 +1,7 @@
 [
     {
         "model": "arosaje.keeping",
+        "pk": 1,
         "fields": {
             "post_id": 1,
             "keeper_id": 2,
@@ -9,6 +10,7 @@
     },
     {
         "model": "arosaje.keeping",
+        "pk": 2,
         "fields": {
             "post_id": 3,
             "keeper_id": 2,
@@ -17,6 +19,7 @@
     },
     {
         "model": "arosaje.keeping",
+        "pk": 3,
         "fields": {
             "post_id": 2,
             "keeper_id": 2,
